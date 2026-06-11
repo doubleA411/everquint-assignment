@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Water Tank — Trapped Rain Water Visualizer</title>
+  <link rel="stylesheet" href="styles.css" />
+
+</head>
+<body>
+  <main class="wrap">
+    <header class="head">
+      <h1>Water Tank</h1>
+      <p class="sub">
+        Enter block heights and see how much water gets trapped between them.
+      </p>
+    </header>
+
+    <section class="controls">
+      <label for="heights" class="field-label">Block heights</label>
+      <div class="input-row">
+        <input
+          id="heights"
+          type="text"
+          placeholder="0,4,0,0,0,6,0,6,4,0"
+        />
+        <button id="run" type="button">Visualize</button>
+      </div>
+      <p id="error" class="error" role="alert" hidden></p>
+    </section>
+
+    <section class="result" aria-live="polite">
+      <div class="total" id="total" hidden>
+        Trapped water: <strong id="total-value">0</strong> units
+      </div>
+      <div class="canvas" id="canvas">
+        <p class="empty">Enter heights above and press Visualize.</p>
+      </div>
+      <div class="legend" id="legend" hidden>
+        <span class="legend-item"><span class="swatch swatch-block"></span> Block</span>
+        <span class="legend-item"><span class="swatch swatch-water"></span> Water</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

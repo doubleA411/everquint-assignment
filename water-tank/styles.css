@@ -1,0 +1,133 @@
+:root {
+  --bg: #0f1419;
+  --panel: #1a2129;
+  --ink: #e6edf3;
+  --muted: #8b98a5;
+  --line: #2d3742;
+  --block: #f5c518;   
+  --water: #1ca7ec; 
+  --accent: #1ca7ec;
+  --error: #ff6b6b;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  padding: 2rem 1rem;
+}
+
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.head h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  color: var(--muted);
+  margin: 0.5rem 0 0;
+  max-width: 48ch;
+}
+
+.controls {
+  margin: 2rem 0 1.5rem;
+}
+
+.field-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+#heights {
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+#heights:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+#run {
+  background: var(--accent);
+  color: #06222e;
+  border: none;
+  padding: 0 1.4rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#run:hover { filter: brightness(1.08); }
+#run:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.error {
+  color: var(--error);
+  font-size: 0.85rem;
+  margin: 0.7rem 0 0;
+}
+
+.total {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+}
+.total strong { color: var(--accent); font-size: 1.4rem; }
+
+.canvas {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1rem;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.canvas svg { display: block; width: 100%; height: auto; }
+
+.empty { color: var(--muted); font-size: 0.9rem; }
+
+.legend {
+  display: flex;
+  gap: 1.4rem;
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.legend-item { display: inline-flex; align-items: center; gap: 0.45rem; }
+.swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.swatch-block { background: var(--block); }
+.swatch-water { background: var(--water); }
+
+@media (max-width: 520px) {
+  .head h1 { font-size: 1.8rem; }
+  .input-row { flex-direction: column; }
+  #run { padding: 0.7rem; }
+}
