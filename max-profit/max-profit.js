@@ -4,74 +4,60 @@
 // Commercial Park 10 units to build; earns $2000/unit
 
 
-// commented out console.logs for clean output, can be uncommented for step by step analysis.
-
 const maxProfit = (n) => {
+  let best = 0;
+  let store = [];
 
-//   console.log('n = ',n)
-//   console.log("----------------")
-  const store = [{ profit: 0, T: 0, P: 0, C: 0 }];
+  // generating combination of T,P,C that can be constructed with the given 'n' units ex: 49/10 = 4; 49/5 = 9; 49/4 = 12;
+  // total 4 parks, 9 theatre and 12 pubs can be built for 49 units; earning for every possible combo of T , P , C is calculated and the best is returned.
+  // every combo of buildings until the max count reaches is generated here in this for loop.
+  for (let C = 0; C <= n / 10; C++) {
+    for (let T = 0; T <= n / 5; T++) {
+      for (let P = 0; P <= n / 4; P++) {
+        if (5 * T + 4 * P + 10 * C > n) continue; // ignoring if build units exceeds 'n' units
 
-  for (let t = 1; t <= n; t++) {
-    let best = store[0]
-
-    // console.log('t = ',t)
-    if (t >= 4) {
-      const profit = (t - 4) * 1000 + store[t - 4].profit;
-    //   console.log('>=4, profit=',profit )
-      if (profit > best.profit) {
-        best = {
-          profit: profit,
-          T: store[t - 4].T,
-          P: store[t - 4].P + 1,
-          C: store[t - 4].C,
-        };
+        // if the earnings are greater than the prev best, the whole array is updated with new max
+        // if the earnings are same as best, it is pused and stored in the array
+        // ignoring if the earnings is less than the best.
+        // this way we get all the possible combinations of max earnings
+        const earnings = findEarnings(T, P, C, n);
+        if (earnings > best) {
+          best = earnings;
+          store = [{ profit: earnings, T, P, C }];
+        } else if (earnings === best) {
+          store.push({ profit: earnings, T, P, C });
+        }
       }
     }
-
-
-    if (t >= 5) {
-      const profit = (t - 5) * 1500 + store[t - 5].profit;
-    //   console.log('>=5, profit=',profit )
-      if (profit > best.profit) {
-        best = {
-          profit: profit,
-          T: store[t - 5].T + 1,
-          P: store[t - 5].P,
-          C: store[t - 5].C,
-        };
-      }
-    }
-
-    if (t >= 10) {
-      const profit = (t - 10) * 2000 + store[t - 10].profit;
-    //   console.log('>=10, profit=',profit )
-      if (profit > best.profit) {
-        best = {
-          profit: profit,
-          T: store[t - 10].T,
-          P: store[t - 10].P,
-          C: store[t - 10].C + 1,
-        };
-      }
-    }
-
-    // console.log('best = ', best)
-    // console.log("----------------")
-
-
-    store[t] = best;
   }
 
-  return store[n];
+  return store;
 };
 
-const result1 = maxProfit(13);
-const result2 = maxProfit(8);
-const result3 = maxProfit(7);
+// findEarnings - this calculates the earnings for the combo generated.
+// tracking the total earnings and used units. 
+// the for loop block , for the total building count it tracks how many used and 
+// calculates the earning as (n - used units x earning cost) as it starts to operate after it built
+const findEarnings = (T, P, C, n) => {
+  let used = 0;
+  let earnings = 0;
 
-console.log({
-    result1,
-    result2,
-    result3
-});
+  for (let i = 0; i < C; i++) {
+    used += 10;
+    earnings += (n - used) * 2000;
+  }
+
+  for (let i = 0; i < T; i++) {
+    used += 5;
+    earnings += (n - used) * 1500;
+  }
+
+  for (let i = 0; i < P; i++) {
+    used += 4;
+    earnings += (n - used) * 1000;
+  }
+
+  return earnings;
+};
+
+console.log(maxProfit(49));
